@@ -22,7 +22,7 @@ def descargador(url):
 
 
 def instalador():
-    if OS == 'linux' or 'linux2' or plataforma.startswith('Linux'):
+    if OS == 'linux' or OS == 'linux2' or plataforma.startswith('Linux'):
         comando = 'gksudo apt-get install '
         libreria = comando + 'python-qt4 qt4-designer'
         os.system(libreria)
@@ -33,7 +33,7 @@ def instalador():
                     return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win_amd64.whl")
                 elif sys.version_info >= (3, ):
                     return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp36-cp36m-win_amd64.whl")
-            else:
+            elif platform.architecture()[0] == '32bit':
                 if sys.version_info >= (2, 7):
                     return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win32.whl")
                 elif sys.version_info >= (3, ):
