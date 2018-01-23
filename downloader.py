@@ -9,7 +9,7 @@ import platform
 libreria = None
 comando = None
 OS = sys.platform
-python_version = None
+plataforma = platform.platform()
 
 if sys.version_info >= (2,7):
     print ("Python version %s.%s.%s+" % (sys.version_info[0], sys.version_info[1], sys.version_info[2]))
@@ -22,12 +22,12 @@ def descargador(url):
 
 
 def instalador():
-    if OS == 'linux' or 'linux2':
+    if OS == 'linux' or 'linux2' or plataforma.startswith('Linux'):
         comando = 'gksudo apt-get install '
         libreria = comando + 'python-qt4 qt4-designer'
         os.system(libreria)
     else:
-        if OS == 'win32':
+        if OS == 'win32' or plataforma.startswith('Windows'):
             if platform.architecture()[0] == '64bit':
                 if sys.version_info >= (2, 7):
                     return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win_amd64.whl")
