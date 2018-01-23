@@ -6,6 +6,10 @@ import sys
 import platform
 
 
+def _deutf8(s):
+    return s
+
+
 libreria = None
 comando = None
 OS = sys.platform
@@ -31,7 +35,11 @@ def verificar_pyqt_instalado():
         if not instalado:
             instalador()
     elif WINDOWS:
-        pip.main(['search', 'PyQt4'])
+        try:
+            __import__('PyQt4')
+            print(__import__('PyQt4').__name__ + _deutf8(" está actualmente instalado en su sistema."))
+        except:
+            instalador()
 
 
 def descargador(url):
