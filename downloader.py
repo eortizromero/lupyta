@@ -10,11 +10,28 @@ libreria = None
 comando = None
 OS = sys.platform
 plataforma = platform.platform()
+python_version = "Version de Python", \
+                 str(sys.version_info[0]) + "." + str(sys.version_info[1]) + "." + str(sys.version_info[2])
+os_plataforma = "%s" % plataforma
 
-if sys.version_info >= (2,7):
-    print ("Python version %s.%s.%s+" % (sys.version_info[0], sys.version_info[1], sys.version_info[2]))
-elif sys.version_info >= (3,):
-    print ("Python version %s.%s.%s+" % (sys.version_info[0], sys.version_info[1], sys.version_info[2]))
+print(" ".join(python_version) + " en " + os_plataforma)
+
+LINUX = OS == 'linux' or OS == 'linux2' or plataforma.startswith('Linux')
+WINDOWS = OS == 'win32' or plataforma.startswith('Windows')
+
+
+def verificar_pyqt_instalado():
+    print ("Verificando si existe alguna instalación de PyQt4")
+    if LINUX:
+        try:
+            os.system("dpkg-query -W -f='${Package} ${Status} ${Version}\n' python-qt4 qt4-designer")
+            instalado = True
+        except:
+            instalado = False
+        if not instalado:
+            instalador()
+    elif WINDOWS:
+        pip.main(['search', 'PyQt4'])
 
 
 def descargador(url):
@@ -27,12 +44,12 @@ def instalar_libreria(libreria):
 
 
 def instalador():
-    if OS == 'linux' or OS == 'linux2' or plataforma.startswith('Linux'):
+    if LINUX:
         comando = 'gksudo apt-get install '
         libreria = comando + 'python-qt4 qt4-designer'
         os.system(libreria)
     else:
-        if OS == 'win32' or plataforma.startswith('Windows'):
+        if WINDOWS:
             arch_wheel = None
             dominio = "http://eortiz.esy.es/docs/"
             if platform.architecture()[0] == '64bit':
@@ -51,12 +68,15 @@ def instalador():
                     descargador(dominio + arch_wheel)
             archivo = None
             try:
-                with open('./{}'.format(arch_wheel), 'r') as wheel:
-                    archivo = wheel.readable()
+                archivo = open('./{}'.format(arch_wheel))
             except Exception as e:
                 print("Imposible abrir el archivo, Error: %s" % e)
-            instalar_libreria(archivo)
+            instalar_libreria(archivo.name)
+
+
+def iniciar():
+    verificar_pyqt_instalado()
 
 
 if __name__ == '__main__':
-    instalador()
+    iniciar()
