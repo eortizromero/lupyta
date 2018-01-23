@@ -21,6 +21,11 @@ def descargador(url):
     return wget.download(url)
 
 
+def instalar_libreria(libreria):
+    print("Instalando libreria %s" % libreria)
+    pip.main(['install', libreria])
+
+
 def instalador():
     if OS == 'linux' or OS == 'linux2' or plataforma.startswith('Linux'):
         comando = 'gksudo apt-get install '
@@ -28,16 +33,28 @@ def instalador():
         os.system(libreria)
     else:
         if OS == 'win32' or plataforma.startswith('Windows'):
+            arch_wheel = None
             if platform.architecture()[0] == '64bit':
                 if sys.version_info >= (2, 7):
-                    return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win_amd64.whl")
+                    arch_wheel = "http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win_amd64.whl"
+                    return descargador(arch_wheel)
                 elif sys.version_info >= (3, ):
-                    return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp36-cp36m-win_amd64.whl")
+                    arch_wheel = "http://eortiz.esy.es/docs/PyQt4-4.11.4-cp36-cp36m-win_amd64.whl"
+                    return descargador(arch_wheel)
             elif platform.architecture()[0] == '32bit':
                 if sys.version_info >= (2, 7):
-                    return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win32.whl")
+                    arch_wheel = "http://eortiz.esy.es/docs/PyQt4-4.11.4-cp27-cp27m-win32.whl"
+                    return descargador(arch_wheel)
                 elif sys.version_info >= (3, ):
-                    return descargador("http://eortiz.esy.es/docs/PyQt4-4.11.4-cp36-cp36m-win32.whl")
+                    arch_wheel = "http://eortiz.esy.es/docs/PyQt4-4.11.4-cp36-cp36m-win32.whl"
+                    return descargador(arch_wheel)
+            archivo = None
+            try:
+                with open('./{}'.format(arch_wheel), 'r') as wheel:
+                    archivo = wheel.readable()
+            except Exception as e:
+                print("Imposible abrir el archivo, Error: %s" % e)
+            instalar_libreria(archivo)
 
 
 if __name__ == '__main__':
