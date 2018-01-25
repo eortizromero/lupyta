@@ -16,7 +16,7 @@ Instalar y actualizar usando `pip`_:
     pip install -U Lupyta
 
 
-A Simple Example
+Un Simple ejemplo
 ----------------
 
 .. code-block:: python
