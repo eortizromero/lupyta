@@ -1,5 +1,5 @@
 Lupyta
-========
+======
 
 Lupyta es un instalador automático de PyQt4.
 
@@ -13,7 +13,7 @@ Instalar y actualizar usando `pip`_:
 
 .. code-block:: text
 
-    pip install -U Lupyta
+    pip install -U lupyta
 
 
 Un Simple ejemplo
