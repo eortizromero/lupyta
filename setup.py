@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
+import io
 
+with io.open('README.rst', 'rt', encoding='utf8') as f:
+    readme = f.read()
 
 setup(
     name="Lupyta",
@@ -9,8 +12,8 @@ setup(
     author="Edgardo Ortiz",
     author_email="edgardoficial.yo@gmail.com",
     description="Lupyta instalador automático de PyQt4",
-    long_description="Lupyta es un instalador automático de PyQt4 para los sistemas "
-                "Operativos Windows® y GNU/Linux (GNU General Public License)",
+    url="https://github.com/eortizromero/lupyta",
+    long_description=readme,
     platforms="any",
     packages=["lupyta"],
     include_package_data=True,
