@@ -13,23 +13,6 @@ class Lupyta(object):
     def __init__(self):
         pass
 
-    def verificar_pyqt_instalado(self):
-        print ("* Examinando PyQt en su sistema...")
-        if LINUX:
-            try:
-                os.system("dpkg-query -W -f='${Package} ${Status} ${Version}\n' python-qt4 qt4-designer")
-                instalado = True
-            except:
-                instalado = False
-            if not instalado:
-                self.instalador()
-        elif WINDOWS:
-            try:
-                __import__('PyQt4')
-                print(__import__('PyQt4').__name__ + _deutf8(" ya se encuentra instalado en su sistema."))
-            except:
-                self.instalador()
-
     def descargador(self, url):
         wget.download(url)
 
@@ -71,7 +54,7 @@ class Lupyta(object):
             self.instalar_libreria(sistema='windows', libreria=archivo.name)
 
     def iniciar(self):
-        self.verificar_pyqt_instalado()
+        self.instalador()
 
 
 instalador = Lupyta()
