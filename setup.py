@@ -8,7 +8,7 @@ with io.open('README.rst', 'rt', encoding='utf8') as f:
 
 setup(
     name="Lupyta",
-    version="1.0.2",
+    version="0.0.3",
     author="Edgardo Ortiz",
     author_email="edgardoficial.yo@gmail.com",
     description="Lupyta instalador automático de PyQt4",
